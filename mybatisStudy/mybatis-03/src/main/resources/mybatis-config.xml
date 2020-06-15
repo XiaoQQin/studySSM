@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--核心配置环境-->
+<configuration>
+    <!--引入外部配置文件-->
+    <properties resource="db.properties">
+        <!--可以自己添加属性配置-->
+        <!--如果相同字段，优先使用外部文件-->
+        <property name="username" value="root"></property>
+        <property name="password" value="23"></property>
+    </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <!--可以给实体类取别名-->
+    <typeAliases>
+        <typeAlias type="com.hwm.pojo.User" alias="User"></typeAlias>
+
+
+        <!--可以扫描一个包，那么后续可以直接使用包内的类，适合实体类更多-->
+        <package name="com.hwm"/>
+    </typeAliases>
+    <!--可以配置多个环境，但是只能使用一个，可以default来进行设置-->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="test">
+            <!--事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;
+characterEncoding=utf8&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每个mapper.xml文件都要在核心配置文件中注册！-->
+    <mappers>
+        <!--第一种，使用路径名-->
+        <mapper resource="com/hwm/dao/UserMapper.xml"></mapper>
+
+        <!--第二种，使用类名-->
+        <!--接口和Mapper文件必须同名-->
+        <!--接口和Mapper文件必须在同一个包下-->
+        <!--<mapper class="com.hwm.dao.UserMapper"/>-->
+
+        <!--第三种，使用包，自动扫描,也是需要文件名相同-->
+        <!--<package name="com.hwm.dao"/>-->
+    </mappers>
+</configuration>
