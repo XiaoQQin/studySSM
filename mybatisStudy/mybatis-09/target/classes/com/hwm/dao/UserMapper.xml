@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace会绑定一个Dao接口-->
+<mapper namespace="com.hwm.dao.UserMapper">
+    <!--在当前mapper开启二级缓存-->
+    <cache/>
+
+    <select id="QueryUserById" resultType="User">
+        select * from user
+        <where>
+            <if test="uid!=null">
+                id=#{uid}
+            </if>
+        </where>
+    </select>
+</mapper>
