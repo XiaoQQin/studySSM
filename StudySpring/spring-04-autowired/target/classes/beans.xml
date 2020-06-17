@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="cat" class="com.hwm.pojo.Cat"/>
+    <bean id="dog" class="com.hwm.pojo.Dog"/>
+
+    <!--<bean id="people" class="com.hwm.pojo.People">-->
+        <!--<property name="name" value="hwm"/>-->
+        <!--<property name="cat" ref="cat"/>-->
+        <!--<property name="dog" ref="dog"/>-->
+    <!--</bean>-->
+
+    <!--使用自动装配
+      byName：会自动在容器上下文中查找和自己对象set方法后面值相同的bean id
+      byType: 会自动在容器上下文中查找和自己对象类型相同的bean id
+    -->
+
+    <bean id="people" class="com.hwm.pojo.People" autowire="byName">
+        <property name="name" value="hwm"/>
+    </bean>
+
+</beans>

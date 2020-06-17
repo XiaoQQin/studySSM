@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.hwm.pojo.Address">
+        <property name="adress" value="地址"/>
+    </bean>
+    <bean id="address1" class="com.hwm.pojo.Address">
+        <property name="adress" value="地址1"/>
+    </bean>
+
+    <bean id="student" class="com.hwm.pojo.Student">
+        <!--第一种，普通值注入-->
+        <property name="name" value="hwm"/>
+
+        <!--第二种，bean注入，使用ref-->
+        <property name="address" ref="address"/>
+
+        <!--第三种，数组注入，使用array-->
+        <property name="books">
+            <array>
+                <value>book1</value>
+                <value>book2</value>
+                <value>book3</value>
+
+            </array>
+        </property>
+
+        <!--list-->
+        <property name="hobbys">
+            <list>
+                <value>hobbys1</value>
+                <value>hobbys2</value>
+                <value>hobbys3</value>
+            </list>
+        </property>
+
+        <!--使用map-->
+        <property name="card">
+            <map>
+                <entry key="username" value="123"/>
+                <entry key="pwd" value="123"/>
+            </map>
+        </property>
+        <!--set-->
+        <property name="games">
+            <set>
+                <value>set1</value>
+                <value>set2</value>
+
+            </set>
+        </property>
+
+        <!--null注入-->
+        <property name="wifi">
+            <null></null>
+        </property>
+        <!---->
+        <property name="info">
+            <props>
+                <prop key="key1">value1</prop>
+                <prop key="key2">value2</prop>
+                <prop key="key3">value3</prop>
+            </props>
+        </property>
+
+        <!--对象数组-->
+        <property name="ads">
+            <array>
+                <ref bean="address1"/>
+
+            </array>
+        </property>
+    </bean>
+</beans>

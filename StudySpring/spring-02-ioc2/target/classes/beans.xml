@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="user" class="com.hwm.pojo.User">
+        <!--若实体类没有无参构造函数时，要使用constructor标签-->
+
+        <!--第一种使用序号-->
+        <!--<constructor-arg index="0" value="hwm arg"/>-->
+
+
+        <!--第二种使用类别,不建议使用，参数的类型一样时候-->
+        <!--<constructor-arg type="java.lang.String" value="hwm arg type"/>-->
+
+
+        <!--第三种直接使用参数名-->
+
+        <constructor-arg name="name" value="hwm arg name"/>
+    </bean>
+
+
+    <!--增加别名，也可以使用别名获取对象-->
+    <alias name="user" alias="userAlias"/>
+
+</beans>
