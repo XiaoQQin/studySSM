@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+
+    <bean id="userService" class="com.hwm.service.UserServiceImpl"/>
+    <bean id="beforeLog" class="com.hwm.log.BeforeLog"/>
+    <bean id="afterLog" class="com.hwm.log.AfterLog"/>
+
+    <!--方法一：使用原生spring api接口的-->
+    <!--配置Aop:需要导入aop的约束-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;切入点 expression&ndash;&gt;-->
+        <!--<aop:pointcut id="pointcut1" expression="execution(* com.hwm.service.UserServiceImpl.*(..))"/>-->
+
+        <!--&lt;!&ndash;执行环绕增加&ndash;&gt;-->
+        <!--<aop:advisor advice-ref="beforeLog" pointcut-ref="pointcut1"/>-->
+        <!--<aop:advisor advice-ref="afterLog" pointcut-ref="pointcut1"/>-->
+
+    <!--</aop:config>-->
+
+    <!--&lt;!&ndash;方法二：自定义类&ndash;&gt;-->
+    <!--<bean id="diyPointCut" class="com.hwm.diy.DiyPointCut"/>-->
+    <!--<aop:config>-->
+
+        <!--&lt;!&ndash;自定义一个切面： ref 切面类&ndash;&gt;-->
+        <!--<aop:aspect ref="diyPointCut">-->
+
+            <!--&lt;!&ndash;切入点&ndash;&gt;-->
+            <!--<aop:pointcut id="pointcut2" expression="execution(* com.hwm.service.UserServiceImpl.*(..))"/>-->
+
+            <!--&lt;!&ndash;通知&ndash;&gt;-->
+
+            <!--<aop:before method="before" pointcut-ref="pointcut2"/>-->
+            <!--<aop:after method="after" pointcut-ref="pointcut2"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <!--方式三-->
+    <bean id="annotationPointCut" class="com.hwm.diy.AnnotationPointCut"/>
+    <!--添加注解支持-->
+    <aop:aspectj-autoproxy/>
+
+
+</beans>
