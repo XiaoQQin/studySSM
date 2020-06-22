@@ -102,8 +102,9 @@ jdbc.password=root
        </update>
    </mapper>
    ```
-## 2. spring
-关于spring主要是对dao和service包中进行配置，dao包围数据库的操作，service包主要是调用dao包，此外在此基础上添加一些其他操作。  
+## 4. spring
+关于spring主要是对dao和service包中进行配置，dao包主要用户数据库的操作，service包主要是调用dao包，此外在此基础上添加一些其他操作。  
+### 4.1 配置dao包
 -  在resource包下创建spring-dao.xml文件
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -199,3 +200,12 @@ jdbc.password=root
    }
    ```
    接下来即可使用junit进行测试，看是否配置成功
+-  另一种方式：不需要自己手动实现BooksMapperImpl，在spring-dao.xml配置文件中添加如下配置,那么spring就可以直接调用
+    ```xml
+    <!--添加如下的配置，那么就不要向上述一样实现BooksMapperImpl，spring会自动帮我们生成-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.hwm.dao"/>
+    </bean>
+    ```
+### 4.2 配置service包
