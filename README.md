@@ -171,3 +171,31 @@ password=root
        </aop:config>
    </beans>
    ```
+-  在dao包下创建BooksMapperImpl类，调用mybatis的sqlSession具体实现数据库操作，采用的是继承SqlSessionDaoSupport的方式 [使用SqlSessionDaoSupport]  (https://mybatis.org/spring/zh/sqlsession.html#SqlSessionDaoSupport)
+   ```java
+   public class BooksMapperImpl extends SqlSessionDaoSupport implements BooksMapper {
+       public int addBook(Books book) {
+           BooksMapper mapper = getSqlSession().getMapper(BooksMapper.class);
+
+           int i = mapper.addBook(book);
+           return i;
+       }
+
+       public int deleteBookById(int bookId) {
+           return getSqlSession().getMapper(BooksMapper.class).deleteBookById(bookId);
+       }
+
+       public Books selectBookById(int bookId) {
+           return getSqlSession().getMapper(BooksMapper.class).selectBookById(bookId);
+       }
+
+       public List<Books> selectAllBooks() {
+           return getSqlSession().getMapper(BooksMapper.class).selectAllBooks();
+       }
+
+       public int updateBook(Books book) {
+           return getSqlSession().getMapper(BooksMapper.class).updateBook(book);
+       }
+   }
+   ```
+   接下来即可使用junit进行测试，看是否配置成功
