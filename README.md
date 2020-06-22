@@ -102,3 +102,72 @@ password=root
        </update>
    </mapper>
    ```
+## 2. spring
+关于spring主要是对dao和service包中进行配置，dao包围数据库的操作，service包主要是调用dao包，此外在此基础上添加一些其他操作。  
+-  在resource包下创建spring-dao.xml文件
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:aop="http://www.springframework.org/schema/aop"
+          xmlns:context="http://www.springframework.org/schema/context" 
+          xmlns:tx="http://www.springframework.org/schema/tx"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           https://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           https://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/tx
+           https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+       <!--加载配置文件-->
+       <context:property-placeholder location="classpath:db.properties"/>
+
+       <!--mysql数据源：数据库连接池-->
+       <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+           <property name="driverClass" value="${driver}"/>
+           <property name="jdbcUrl" value="${url}"/>
+           <property name="user" value="${username}"/>
+           <property name="password" value="${password}"/>
+
+           <!--c3p0连接池的私有属性-->
+           <property name="maxPoolSize" value="30"/>
+           <property name="minPoolSize" value="10"/>
+           <!--关闭连接后不自动commit-->
+           <property name="autoCommitOnClose" value="false"/>
+           <!--获取连接池超时时间-->
+           <property name="checkoutTimeout" value="10000"/>
+           <!--获取连接失败时重连次数-->
+           <property name="acquireRetryAttempts" value="2"/>
+       </bean>
+
+       <!--sqlSessionFactory-->
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+           <property name="dataSource" ref="datasource" />
+           <!--绑定mybatis配置文件-->
+           <property name="configLocation" value="classpath:mybatis-config.xml"/>
+           <!--相关mapper文件-->
+           <property name="mapperLocations" value="com/hwm/dao/*.xml"/>
+       </bean>
+
+       <!--配置声明式事务-->
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+           <property name="dataSource" ref="datasource"/>
+       </bean>
+
+       <!--结合Aop实现事务的插入-->
+       <!--配置事务通知-->
+       <tx:advice id="txAdvice" transaction-manager="transactionManager">
+           <!--给哪些方法配置事务-->
+           <tx:attributes>
+               <tx:method name="*" propagation="REQUIRED"/>
+           </tx:attributes>
+       </tx:advice>
+       <!--配置事务切入-->
+       <aop:config>
+           <aop:pointcut id="txPointCut" expression="execution(* com.hwm.dao.*.*(..))"/>
+           <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+       </aop:config>
+   </beans>
+   ```
