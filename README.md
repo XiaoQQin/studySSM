@@ -40,10 +40,10 @@ insert into books(bookId,bookName,bookCount,detail) VALUES
 ```
 在resources目录下创建dp.properties文件，存储数据库连接信息
 ```properties
-driver=com.mysql.cj.jdbc.Driver
-url=jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
-username=root
-password=root
+jdbc.driver=com.mysql.cj.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+jdbc.username=root
+jdbc.password=root
 ```
 ### 3.2 创建相关类
 -  创建pojo类Books,为了方便，类中属性与表中字段名一致，使用了lombok标签 。
@@ -126,10 +126,10 @@ password=root
 
        <!--mysql数据源：数据库连接池-->
        <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-           <property name="driverClass" value="${driver}"/>
-           <property name="jdbcUrl" value="${url}"/>
-           <property name="user" value="${username}"/>
-           <property name="password" value="${password}"/>
+           <property name="driverClass" value="${jdbc.driver}"/>
+           <property name="jdbcUrl" value="${jdbc.url}"/>
+           <property name="user" value="${jdbc.username}"/>
+           <property name="password" value="${jdbc.password}"/>
 
            <!--c3p0连接池的私有属性-->
            <property name="maxPoolSize" value="30"/>
