@@ -364,7 +364,7 @@ public class myTest {
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-mvc.xml</param-value>
+            <param-value>classpath:applicationContext.xml</param-value>
         </init-param>
     </servlet>
     
@@ -379,7 +379,7 @@ public class myTest {
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
-            <param-value>uft-8</param-value>
+            <param-value>utf-8</param-value>
         </init-param>
     </filter>
     <filter-mapping>
