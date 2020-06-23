@@ -166,7 +166,7 @@ jdbc.password=root
            <!--绑定mybatis配置文件-->
            <property name="configLocation" value="classpath:mybatis-config.xml"/>
            <!--相关mapper文件-->
-           <property name="mapperLocations" value="com/hwm/dao/*.xml"/>
+           <property name="mapperLocations" value="classpath:com/hwm/dao/*.xml"/>
        </bean>
 
 
