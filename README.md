@@ -1,3 +1,4 @@
+# SSM框架整合
 <!-- TOC -->
 -  [1. 建立测试数据库](#1-建立测试数据库)  
 -  [2. 建立Maven项目](#2-建立Maven项目)  
@@ -12,7 +13,7 @@
    - [5.2 编写spring-mvc.xml](#52-编写spring-mvc.xml)  
    - [5.3 controller包](#53-controller包)
 <!-- /TOC -->
-# SSM框架整合
+
 
 ## 1. 建立测试数据库
 ```sql
