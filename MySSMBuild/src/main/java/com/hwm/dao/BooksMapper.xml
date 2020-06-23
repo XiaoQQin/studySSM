@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hwm.dao.BooksMapper">
+    <insert id="addBook" parameterType="books">
+        insert into books(bookName, bookCount, detail) values (#{bookName}, #{bookCount}, #{detail})
+    </insert>
+
+    <delete id="deleteBookById">
+        delete  from books where bookId=#{bookId}
+    </delete>
+
+    <select id="selectBookById" resultType="books">
+        select * from books where bookId=#{bookId}
+    </select>
+    <select id="selectAllBooks" resultType="books">
+        select * from books
+    </select>
+
+    <update id="updateBook" parameterType="books">
+        update books set
+        bookName=#{bookName},bookCount=#{bookCount},detail=#{detail}
+        where bookId=#{bookId}
+    </update>
+
+    <select id="queryBookByName" resultType="books">
+        select * from ssmbuild1.books where bookName like concat('%',#{queryBookByName},'%')
+    </select>
+</mapper>
